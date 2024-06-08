@@ -5,7 +5,7 @@
     "address": {
         "street": "123 Main St",
         "city": "New York",
-        "state": "NY",
+        "state": "IND",
         "zip": "10001"
     },
     "hobbies": ["reading", "coding", "traveling"]
