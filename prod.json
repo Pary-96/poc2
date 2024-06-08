@@ -9,4 +9,6 @@
         "zip": "10001"
     },
     "hobbies": ["reading", "coding", "traveling"]
+    key:value
+    value:key
 }
