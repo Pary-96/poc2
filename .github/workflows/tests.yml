@@ -28,12 +28,25 @@ jobs:
           # Retrieve the list of changed files
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
 
+          # Variable to track validation status
+          validation_failed=false
+
           # Loop through the changed files
           for file in $changed_files; do
             # Check if the file is a JSON file
             if [[ $file == *.json ]]; then
               echo "Validating JSON file: $file"
-              python scripts/validate_json.py "${{ github.workspace }}/$file"
+              if ! python scripts/validate_json.py "${{ github.workspace }}/$file"; then
+                validation_failed=true
+              fi
             fi
           done
+
+          # Check if any validation failed
+          if [ "$validation_failed" = true ]; then
+            echo "Validation failed"
+            exit 1  # Fail the workflow if validation fails
+          else
+            echo "Validation passed"
+          fi
         shell: bash
